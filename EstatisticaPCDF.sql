@@ -63,6 +63,7 @@ select
 from Moradia
 )
 
+
 , EscalaValores AS (
 	
 select 
@@ -110,7 +111,6 @@ select
 	Turma,
 	(Turma + Relacionamento + GeneroColegas + Imovel + Cargo + QuartoIndividual + Transporte + Genero + Cigarro + DefesaPessoal) Score
 from ValoresBase)
-
 
 , DadosEstatisticos AS (
 select 
@@ -270,8 +270,9 @@ select
 'T1' Turma,
 (CASE
 	WHEN (GeneroB1 = 2 and GeneroB2 = 2) and (GeneroColegasB1 = 2 and GeneroColegasB2 = 2) THEN 'Sim'
-	WHEN GeneroColegasB1 = 1 and GeneroColegasB2 = 1  THEN 'Sim'
+	WHEN (GeneroColegasB1 = 1 and GeneroColegasB2 = 1)  THEN 'Sim'
 	WHEN (GeneroB1 = 2 and GeneroColegasB1 = 1) and GeneroColegasB2 = 1 THEN 'Sim'
+	WHEN (GeneroB1 = 1 and GeneroB2 = 1) THEN 'Sim'
 	WHEN (GeneroB1 = 1 and GeneroB2 = 2) and (GeneroColegasB1 = 2) THEN 'Não'
 	ELSE 'Não'
 END) EhValido
@@ -286,6 +287,7 @@ select
 	WHEN (GeneroB1 = 2 and GeneroB2 = 2) and (GeneroColegasB1 = 2 and GeneroColegasB2 = 2) THEN 'Sim'
 	WHEN GeneroColegasB1 = 1 and GeneroColegasB2 = 1  THEN 'Sim'
 	WHEN (GeneroB1 = 2 and GeneroColegasB1 = 1) and GeneroColegasB2 = 1 THEN 'Sim'
+	WHEN (GeneroB1 = 1 and GeneroB2 = 1) THEN 'Sim'
 	WHEN (GeneroB1 = 1 and GeneroB2 = 2) and (GeneroColegasB1 = 2) THEN 'Não'
 	ELSE 'Não'
 END) EhValido
@@ -312,4 +314,4 @@ from ValidacaoT2e3
 )
 
 select * from AgrupamentoPessoas
-
+order by Turma
